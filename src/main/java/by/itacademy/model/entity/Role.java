@@ -2,6 +2,8 @@ package by.itacademy.model.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 public class Role {
     @Id
@@ -24,5 +26,23 @@ public class Role {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Role role1 = (Role) o;
+
+        if (!Objects.equals(id, role1.id)) return false;
+        return Objects.equals(role, role1.role);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        return result;
     }
 }

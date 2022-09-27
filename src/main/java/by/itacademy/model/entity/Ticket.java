@@ -2,6 +2,8 @@ package by.itacademy.model.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 public class Ticket {
     @Id
@@ -46,5 +48,27 @@ public class Ticket {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Ticket ticket = (Ticket) o;
+
+        if (!Objects.equals(id, ticket.id)) return false;
+        if (!Objects.equals(passport, ticket.passport)) return false;
+        if (!Objects.equals(route, ticket.route)) return false;
+        return Objects.equals(user, ticket.user);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (passport != null ? passport.hashCode() : 0);
+        result = 31 * result + (route != null ? route.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        return result;
     }
 }

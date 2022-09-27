@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Route {
@@ -51,5 +52,27 @@ public class Route {
 
     public void setCities(List<City> cities) {
         this.cities = cities;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Route route = (Route) o;
+
+        if (!Objects.equals(id, route.id)) return false;
+        if (!Objects.equals(arrival, route.arrival)) return false;
+        if (!Objects.equals(departure, route.departure)) return false;
+        return Objects.equals(cities, route.cities);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (arrival != null ? arrival.hashCode() : 0);
+        result = 31 * result + (departure != null ? departure.hashCode() : 0);
+        result = 31 * result + (cities != null ? cities.hashCode() : 0);
+        return result;
     }
 }

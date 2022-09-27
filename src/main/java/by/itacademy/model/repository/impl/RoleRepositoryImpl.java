@@ -4,4 +4,7 @@ import by.itacademy.model.entity.Role;
 import by.itacademy.model.repository.RoleRepository;
 
 public class RoleRepositoryImpl extends DefaultRepositoryImpl<Role> implements RoleRepository {
+    public RoleRepositoryImpl() {
+        super(Role.class);
+    }
 }

@@ -3,6 +3,7 @@ package by.itacademy.model.entity;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class City {
@@ -48,5 +49,27 @@ public class City {
 
     public void setRoutes(List<Route> routes) {
         this.routes = routes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        City city = (City) o;
+
+        if (!Objects.equals(id, city.id)) return false;
+        if (!Objects.equals(name, city.name)) return false;
+        if (!Objects.equals(country, city.country)) return false;
+        return Objects.equals(routes, city.routes);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (routes != null ? routes.hashCode() : 0);
+        return result;
     }
 }

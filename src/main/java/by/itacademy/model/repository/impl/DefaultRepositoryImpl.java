@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public abstract class DefaultRepositoryImpl<T> implements DefaultRepository<T> {
 
-    private Class<T> tClass;
+    private final Class<T> tClass;
 
-    public final void settClass(Class<T> tClass) {
+    public DefaultRepositoryImpl(Class<T> tClass) {
         this.tClass = tClass;
     }
 

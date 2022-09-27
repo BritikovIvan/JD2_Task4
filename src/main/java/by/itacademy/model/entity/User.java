@@ -2,6 +2,8 @@ package by.itacademy.model.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 public class User {
     @Id
@@ -55,5 +57,29 @@ public class User {
 
     public void setLogin(Login login) {
         this.login = login;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (!Objects.equals(id, user.id)) return false;
+        if (!Objects.equals(name, user.name)) return false;
+        if (!Objects.equals(surname, user.surname)) return false;
+        if (!Objects.equals(role, user.role)) return false;
+        return Objects.equals(login, user.login);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        return result;
     }
 }
