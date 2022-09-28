@@ -12,7 +12,7 @@ public class City {
     private Long id;
     @Column
     private String name;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "country_id")
     private Country country;
 

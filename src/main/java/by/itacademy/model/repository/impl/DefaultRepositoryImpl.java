@@ -33,7 +33,7 @@ public abstract class DefaultRepositoryImpl<T> implements DefaultRepository<T> {
     @Override
     public List<T> findAll() {
         Session session = DataSource.getInstance().getSession();
-        return session.createQuery("from" + tClass.getName(), tClass).getResultList();
+        return session.createQuery("from " + tClass.getName(), tClass).getResultList();
     }
 
     @Override

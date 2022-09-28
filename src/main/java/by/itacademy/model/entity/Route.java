@@ -15,7 +15,7 @@ public class Route {
     private LocalDateTime arrival;
     @Column
     private LocalDateTime departure;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "route_city",
             joinColumns = @JoinColumn(name = "route_id"),
