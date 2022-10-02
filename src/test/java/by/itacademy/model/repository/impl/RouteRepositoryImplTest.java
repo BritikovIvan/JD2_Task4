@@ -1,20 +1,26 @@
 package by.itacademy.model.repository.impl;
 
-import by.itacademy.model.entity.City;
-import by.itacademy.model.entity.Country;
-import by.itacademy.model.entity.Route;
+import by.itacademy.model.entity.*;
 import by.itacademy.model.repository.RouteRepository;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class RouteRepositoryImplTest {
-    private final RouteRepository routeRepository = new RouteRepositoryImpl();
+    private static final RouteRepository routeRepository = new RouteRepositoryImpl();
+
+    private static List<Route> routesBeforeTest;
+
+    @BeforeAll
+    static void setCompaniesBeforeTest() {
+        routesBeforeTest = routeRepository.findAll();
+    }
 
     @Test
     void testCreate() {
@@ -22,27 +28,40 @@ public class RouteRepositoryImplTest {
         route.setArrival(LocalDateTime.of(2022, Month.SEPTEMBER, 29, 8, 0));
         route.setDeparture(LocalDateTime.of(2022, Month.SEPTEMBER, 29, 15, 26));
 
-        List<Route> routes = new ArrayList<>();
-        routes.add(route);
-        List<City> cities = new ArrayList<>();
-        City city = new City();
-        city.setName("Moscow");
-        Country country = new Country();
-        country.setName("Russia");
-        city.setRoutes(routes);
-        city.setCountry(country);
-        cities.add(city);
-        city = new City();
-        city.setName("Washington");
-        country =new Country();
-        country.setName("USA");
-        city.setRoutes(routes);
-        city.setCountry(country);
-        cities.add(city);
-
-        route.setCities(cities);
+//        City city = new City();
+//        city.setName("Moscow");
+//        Country country = new Country();
+//        country.setName("Russia");
+//        city.setCountry(country);
+//        List<RouteCity> routeCities = new ArrayList<>();
+//        RouteCity routeCity = new RouteCity();
+//        routeCity.setCity(city);
+//        routeCity.setRoute(route);
+//        routeCity.setSequenceOrder(1);
+//        city.setRouteCities(routeCities);
+//        routeCities.add(routeCity);
+//
+//        city = new City();
+//        city.setName("Washington");
+//        country =new Country();
+//        country.setName("USA");
+//        city.setCountry(country);
+//        routeCity = new RouteCity();
+//        routeCity.setCity(city);
+//        routeCity.setRoute(route);
+//        routeCity.setSequenceOrder(2);
+//        city.setRouteCities(routeCities);
+//        routeCities.add(routeCity);
+//        route.setRouteCities(routeCities);
 
         routeRepository.save(route);
         Assertions.assertNotNull(route.getId());
+    }
+
+    @AfterAll
+    static void cleanDb() {
+        List<Route> routesAfterTest = routeRepository.findAll();
+        routesAfterTest.removeAll(routesBeforeTest);
+        routesAfterTest.forEach(companyToDelete -> routeRepository.delete(companyToDelete.getId()));
     }
 }

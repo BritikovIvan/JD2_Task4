@@ -1,9 +1,13 @@
 package by.itacademy.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "aircompany")
 public class AirCompany {
@@ -13,22 +17,6 @@ public class AirCompany {
     @Column
     private String name;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -36,14 +24,11 @@ public class AirCompany {
 
         AirCompany that = (AirCompany) o;
 
-        if (!Objects.equals(id, that.id)) return false;
-        return Objects.equals(name, that.name);
+        return id != null && id.equals(that.getId());
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+        return 13;
     }
 }
